@@ -169,9 +169,8 @@ MixpanelGroup.prototype._send_request = function (data, callback) {
 
   var date_encoded_data = _.encodeDates(data);
 
-  // Get api_host for groups endpoint if available, otherwise use default api_host
-  var api_host =
-    this._get_config("api_hosts")["groups"] || this._get_config("api_host");
+  // Get api_host for groups endpoint
+  var api_host = this._mixpanel._getApiHost("groups");
 
   return this._mixpanel._track_or_batch(
     {

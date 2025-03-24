@@ -1207,9 +1207,7 @@ MixpanelLib.prototype.track = addOptOutCheckMixpanelLib(function (
     properties: properties,
   };
 
-  // Use api_hosts[events] if available, fall back to api_host
-  var api_host =
-    this.get_config("api_hosts")["events"] || this.get_config("api_host");
+  var api_host = this._getApiHost("events");
 
   var ret = this._track_or_batch(
     {
@@ -2064,6 +2062,17 @@ MixpanelLib.prototype.set_config = function (config) {
  */
 MixpanelLib.prototype.get_config = function (prop_name) {
   return this["config"][prop_name];
+};
+
+/**
+ * Get the API host for a specific endpoint type, falling back to the default api_host if not specified
+ * 
+ * @param {String} endpoint_type The type of endpoint (e.g., "events", "people", "groups")
+ * @returns {String} The API host to use for this endpoint
+ * @private
+ */
+MixpanelLib.prototype._getApiHost = function (endpoint_type) {
+  return this.get_config("api_hosts")[endpoint_type] || this.get_config("api_host");
 };
 
 /**

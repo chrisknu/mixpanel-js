@@ -390,9 +390,8 @@ MixpanelPeople.prototype._send_request = function (data, callback) {
     return _.truncate(date_encoded_data, 255);
   }
 
-  // Get api_host for people endpoint if available, otherwise use default api_host
-  var api_host =
-    this._get_config("api_hosts")["people"] || this._get_config("api_host");
+  // Get api_host for people endpoint
+  var api_host = this._mixpanel._getApiHost("people");
 
   return this._mixpanel._track_or_batch(
     {
